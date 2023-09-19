@@ -62,7 +62,7 @@ body {
     font-weight: 600;
 }
 .game-box .guesses-text b {
-    color: #a28089
+    color: #a28089;
 }
 .game-box .keyboard {
     display: flex;
@@ -71,6 +71,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
 }
+
 :where(.game-modal, .keyboard) button{
       color: #ffa8B6;
     font-size: 1rem;
@@ -82,6 +83,8 @@ body {
     border-radius: 4px;
     text-transform: uppercase;
 }
+
+
 .keyboard button {
       padding: 7px;
       width: calc(100% 9 - 5px);
@@ -129,4 +132,17 @@ body {
 .game-modal button{
     padding:12px 23px;
 
+}
+@media (max-width: 782px) {
+  .container {
+    flex-direction: column;
+    padding: 30px 15px;
+    align-items: center;
+      }
+    .hangman-box img {
+        max-width: 200px;
+    }
+    .hangman-box h1 {
+        display: none;
+    }
 }
