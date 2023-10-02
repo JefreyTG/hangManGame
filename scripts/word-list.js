@@ -1,4 +1,5 @@
-const wordList=[
+
+const wordList = [
     {
         word: "guitar",
         hint: "A musical instrument with strings."
@@ -259,4 +260,4 @@ const wordList=[
         word: "brilliant",
         hint: "Exceptionally clever, talented, or impressive."
     },
-];
+]
