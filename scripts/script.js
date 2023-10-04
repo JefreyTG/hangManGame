@@ -3,17 +3,30 @@ const hangManImage=document.querySelector(".hangman-box img");
 const guessesText=document.querySelector(".guesses-text b");
 const keyboardDiv=document.querySelector(".keyboard");
 const gameModal=document.querySelector(".game-modal");
+const playAgainBtn=document.querySelector(".play-again");
 
 
-let currentWord, correctLetters =[], wrongGuessCount = 0;
+let currentWord, correctLetters, wrongGuessCount;
  const maxGuesses = 6;
+
+ const resetGame = () => {
+  // ressetting all game variables and UI elements
+  correctLetters=[];
+  wrongGuessCount = 0;
+  hangManImage.src=`hangman-game-images/images/hangman-${wrongGuessCount}.svg`;
+  guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+  keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
+  wordDisplay.innerHTML = currentWord.split("").map(() => `<li class="letter"></li>`).join("");
+  gameModal.classList.remove("show");
+
+
+ }
 
 const getRandomWord = () => {
     const { word, hint} = wordList[Math.floor(Math.random() * wordList.length)];
     currentWord = word;
     console.log(word);
     document.querySelector(".hint-text b").innerText = hint;
-    wordDisplay.innerHTML = word.split("").map(() => `<li class="letter"></li>`).join("");
 }
 
 const gameOver = (isVictory) => {
@@ -28,7 +41,7 @@ const gameOver = (isVictory) => {
 }
 
 
-const initGame = (button, clickedLetter) => {
+const initGame = (button, clickedLetter) => { 
     //checking if clickedLetter Exists on the currentWord  
   if (currentWord.includes(clickedLetter)) {
     //Showing all correct letters on the word display 
@@ -63,3 +76,4 @@ keyboardDiv.appendChild(button);
 button.addEventListener("click", e => initGame(e.target, String.fromCharCode(i)));
 }
 getRandomWord();
+playAgainBtn.addEventListener("click", getRandomWord);
