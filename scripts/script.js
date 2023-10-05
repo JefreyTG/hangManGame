@@ -1,5 +1,5 @@
-const wordDisplay=document.querySelector(".word-display");
 const hangManImage=document.querySelector(".hangman-box img");
+const wordDisplay=document.querySelector(".word-display");
 const guessesText=document.querySelector(".guesses-text b");
 const keyboardDiv=document.querySelector(".keyboard");
 const gameModal=document.querySelector(".game-modal");
@@ -10,9 +10,12 @@ let currentWord, correctLetters, wrongGuessCount;
  const maxGuesses = 6;
 
  const resetGame = () => {
+  
   // ressetting all game variables and UI elements
-  correctLetters=[];
+
+  correctLetters = [];
   wrongGuessCount = 0;
+
   hangManImage.src=`hangman-game-images/images/hangman-${wrongGuessCount}.svg`;
   guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
   keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
@@ -26,15 +29,16 @@ const getRandomWord = () => {
     const { word, hint} = wordList[Math.floor(Math.random() * wordList.length)];
     currentWord = word;
     console.log(word);
+    resetGame();
     document.querySelector(".hint-text b").innerText = hint;
 }
 
 const gameOver = (isVictory) => {
   //After 600ms of game complete ... showing modal with relevant details 
   setTimeout(() =>{
-    const modalText=isVictory ? `Youn found the word:`: `The correct word was:`;
+    const modalText=isVictory ? `You found the word:`: `The correct word was:`;
     gameModal.querySelector("img").src = `../hangman-game-images/images/${isVictory ? `victory` : `lost`}.gif`;
-    gameModal.querySelector("h4").innerText = `${isVictory ? `Congrats!` : `Game Over!`}`
+    gameModal.querySelector("h4").innerText = `${isVictory ? `Congrats!` : `Game Over!`}`;
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
     gameModal.classList.add("show");
   }, 300);
@@ -63,9 +67,7 @@ const initGame = (button, clickedLetter) => {
 
 //Calling gameOver function if any of these condition meets 
   if(wrongGuessCount === maxGuesses) return gameOver(false);
-  if(correctLetters.length === currentWord.length) return gameOver(true);
-
-
+  if(correctLetters.length === currentWord.length) return gameOver(true);  
 }
 
 //Creating Keyboard Buttons and adding event listeners 
